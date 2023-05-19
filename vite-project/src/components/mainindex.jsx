@@ -6,10 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faHeart, faPaperPlane, faCircleUser, faCommentDots, faBookmark } from '@fortawesome/free-regular-svg-icons';
 
+// We create and export the mainpage function
+
 export function Mainpage({Changeview}){
+
+    // we create the state constant where the posts are saved
 
     const [publicaciones, setPublicciones] = useState([["prueva1","../../imagenes/publi.jpg"],
     ["prueva2","../../imagenes/publi.jpg"]])
+
+    /* here we check if the localstorage exists if the publications constant exists it will change to what we have in the 
+    localstorage if it does not exist we do the opposite we create the localsotarge and we put the publications constant 
+    in it and we will do all this with the useeffect */
 
     useEffect(() => {
         if (localStorage.getItem("publicaciones")) {
@@ -19,13 +27,18 @@ export function Mainpage({Changeview}){
         }
       }, []);
 
+    // what the logout function does is eliminate the sessionstorage and redirect you to the login
+
     function logout (){
         sessionStorage.removeItem('user');
         Changeview('login')
     }
 
-    function createpubli(evform) {
-        evform.preventDefault();
+    /* what the function will do is create publications to begin with we need a constant where we will store the name and another 
+    to store the value of the sessionstorage then if the name matches the sessionstorage then the publication is created otherwise 
+    it will show you an alert that the user does not match */ 
+
+    function createpubli() {
       
         const nombre = document.getElementById("nombre").value;
         const user = sessionStorage.getItem('user');
@@ -42,16 +55,16 @@ export function Mainpage({Changeview}){
         }
     }
 
-    // eliminate publication the post where the button is
+    // Delete the publication where the button we clicked is, but first check if the user who is logged in belongs to the publication
     function eliminatepubli(index) {
 
         const UserStorage = sessionStorage.getItem('user');
       
         if (UserStorage) {
             const updatedPubli = [...publicaciones];
-            const [username, _] = publicaciones[index];
+            const [username] = publicaciones[index];
       
-            if (username === UserStorage) {
+            if (username == UserStorage) {
                 updatedPubli.splice(index, 1);
                 setPublicciones(updatedPubli);
                 localStorage.setItem('publicaciones', JSON.stringify(updatedPubli));

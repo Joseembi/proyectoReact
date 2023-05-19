@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {Register} from "./components/Register"
 import {Login} from "./components/login"
-import {Mainpage} from './components/main'
+import {Mainpage} from './components/mainindex'
 import './App.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import 'bootstrap/dist/css/bootstrap.css'
